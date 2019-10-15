@@ -1,0 +1,7 @@
+dev/env_config.tf
+shared_config/shared_config.tf
+shared_infra/shared_infra.tf
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
+.DS_Store

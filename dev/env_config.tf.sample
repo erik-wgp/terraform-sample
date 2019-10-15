@@ -1,0 +1,70 @@
+# This string will be used in various names and tags
+variable "current_env"    { default = "dev" }
+
+# Third octet values for networks, eg 10.88.32.0/24
+variable "main_subnet_d"  { default = 32 }
+variable "inner_subnet_d" { default = 33 }
+
+variable "main_subnet_e"  { default = 132 }
+variable "inner_subnet_e" { default = 133 }
+
+# Server configuration; default counts are zero
+# For dev we have minimal redudnancy and counts
+# Most servers are placed in 1d
+
+variable "server_conf_1d" {
+   default = {
+      default_count = 0
+      default_type = "t2.micro"
+
+      # can't use interpolations here w/ v11 or v12
+      #default_ami = "${local.c.default_ami}"
+      default_ami = "ami-XXXXXXX"
+
+      server_count = 1
+      server_type = "t2.micro"
+
+      vault_count = 1
+      vault_type = "t2.micro"
+
+      admin_count = 1
+      master_count = 1
+      sidekiq_count = 1
+   }
+}
+
+variable "server_conf_1e" {
+   default = {
+      default_count = 0
+      default_type = "t2.micro"
+
+      # can't use interpolations here w/ v11 or v12
+      #default_ami = "${local.c.default_ami}"
+      default_ami = "ami-XXXXXXX"
+    
+      server_count = 1
+      server_type = "t2.micro"
+ 
+      vault_count = 1
+      vault_type = "t2.micro"
+   }
+}
+
+# todo - store RDS passwords separately
+variable "db_conf" {
+   default = {
+      storage = "20",
+      password = "lassie234"
+      type = "db.t3.micro"
+   }
+}
+
+
+variable "vault_conf" {
+   type = "map"
+   default = {
+      storage = "5",
+      password = "benjy123"
+      type = "db.t3.micro"
+   }
+}

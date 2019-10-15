@@ -1,0 +1,18 @@
+# Currently a manual process; after "core" is made, set these variables.
+#
+# These could probably be derived via query, but ideally core would export
+# this file automatically, or a script could process the terraform state
+
+output infra_conf {
+   value = {
+      vpc_id               = "vpc-XXXXX"
+      nat_1d               = "nat-XXXXX"
+      nat_1e               = "nat-XXXXX"
+   
+      adm_peering_id       = "pcx-XXXXX"
+      base_sg              = "sg-XXXXX"
+   
+      vpn_1d               = "i-XXXXX"
+      vpn_1e               = "i-XXXXX"
+   }
+}

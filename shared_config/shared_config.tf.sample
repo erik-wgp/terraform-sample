@@ -1,0 +1,47 @@
+output all_conf {
+   value = {
+      # General AWS settings
+      region      = "us-east-1",
+      default_ami = "ami-XXXXXXXXXXXXX"
+
+      aws = {
+         credentials_file = "/path/to/user/.aws/credentials"
+         profile = "scratch"
+      }
+
+      # These will be used as prefixes in names and tags, including creating a "Client" tag
+      client = {
+         short = "acme"
+         tag   = "ACME"
+      }
+
+      vpc = {
+         # a 10.x.x.x/16 CIDR
+         cidr      = "10.88.0.0/16"
+         # these IPs can ssh to all servers except VPN servers
+         # these might be via the peering VPC
+         admin_ips = [ "10.111.1.2/32", "10.111.1.3/32", "10.220.0.0/16", "69.244.183.98/32", "10.59.1.168/32" ]
+      }
+
+      # place the VPN IP on a separate subnet, which the VPN servers will forward
+      # we route traffic to those subnets to them
+      vpn = {
+         cidr        = "10.60.0.0/16"
+         listen_port = "20219"
+         # these IPs can connect to the VPN
+         # (there is also a separate SG for dynamic access control)
+         allow_ips   = [ "1.2.3.4/32" ]
+         # these IPs can ssh directly to the VPN server
+         special_ips = [ "1.2.3.4/32", "10.88.8.9/32" ]
+      }
+
+      # remote VPC which will have access (TODO - support blank)
+      adm_peering = {
+         exists           = true # does not work yet to set to false
+         vpc_id           = "vpc-XXXXXXXXXXXXXX"
+         cidr             = "10.111.0.0/16"
+         owner            = "123123123123123"
+      }
+	}
+}
+
